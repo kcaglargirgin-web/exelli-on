@@ -87,7 +87,7 @@ export const AmbientAudioPlayer: React.FC = () => {
 
     startAudio();
 
-    // Browser interaction listener to trigger audio play on first user gesture if autoplay was blocked
+    // Browser interaction listener to trigger audio play on first user activity if initial autoplay was blocked
     const handleFirstGesture = () => {
       if (audioRef.current && audioRef.current.paused) {
         audioRef.current
@@ -97,20 +97,36 @@ export const AmbientAudioPlayer: React.FC = () => {
             playInitialWelcomeOnce();
           })
           .catch(() => {});
+      } else {
+        playInitialWelcomeOnce();
       }
-      window.removeEventListener('click', handleFirstGesture);
-      window.removeEventListener('touchstart', handleFirstGesture);
-      window.removeEventListener('keydown', handleFirstGesture);
+      removeGestureListeners();
     };
 
-    window.addEventListener('click', handleFirstGesture);
-    window.addEventListener('touchstart', handleFirstGesture);
-    window.addEventListener('keydown', handleFirstGesture);
+    const gestureEvents = [
+      'click',
+      'touchstart',
+      'touchend',
+      'pointerdown',
+      'pointermove',
+      'mousemove',
+      'scroll',
+      'wheel',
+      'keydown',
+    ];
+
+    const removeGestureListeners = () => {
+      gestureEvents.forEach((evt) => {
+        window.removeEventListener(evt, handleFirstGesture);
+      });
+    };
+
+    gestureEvents.forEach((evt) => {
+      window.addEventListener(evt, handleFirstGesture, { passive: true, once: true });
+    });
 
     return () => {
-      window.removeEventListener('click', handleFirstGesture);
-      window.removeEventListener('touchstart', handleFirstGesture);
-      window.removeEventListener('keydown', handleFirstGesture);
+      removeGestureListeners();
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;

@@ -1,0 +1,6 @@
+{
+  "name": "EXELLI-ON | Future Systems",
+  "description": "Futuristic high-tech solution services website featuring interactive 3D WebGL visuals and minimal architectural design for EXELLI-ON.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

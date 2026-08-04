@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #fdfbf9;
+    --text: #332d2b;
+    --accent: #d8b6a9;
+    --accent-hover: #c9a496;
+    --subtle: #b4a59f;
+    --glass: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(216, 182, 169, 0.3);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3, .font-heading {
+    font-family: 'Lexend Exa', sans-serif;
+    letter-spacing: 0.15em;
+  }
+}
+
+/* Floating animation */
+@keyframes floatLogo {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-16px) scale(1.01);
+  }
+}
+
+.animate-float-logo {
+  animation: floatLogo 6s ease-in-out infinite;
+}
+
+/* Glassmorphism Card Style */
+.do-card-glass {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(216, 182, 169, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(51, 45, 43, 0.04);
+}
+
+.do-card-glass:hover {
+  border-color: rgba(216, 182, 169, 0.6);
+  box-shadow: 0 16px 40px -12px rgba(216, 182, 169, 0.18);
+}
+

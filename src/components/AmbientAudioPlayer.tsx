@@ -20,8 +20,8 @@ export const AmbientAudioPlayer: React.FC = () => {
       }
       window.speechSynthesis.cancel(); // clear ongoing queue
 
-      // Phonetic spelling to ensure natural pronunciation: "Hi, welcome to exeli-in"
-      const utterance = new SpeechSynthesisUtterance('Hi, welcome to exeli-in');
+      // Phonetic spelling to ensure natural pronunciation: "Welcome to exeli-in"
+      const utterance = new SpeechSynthesisUtterance('Welcome to exeli-in');
       utterance.rate = 0.92;
       utterance.pitch = 1.05;
       utterance.volume = 1.0;

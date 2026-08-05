@@ -47,8 +47,7 @@ export const Header: React.FC<HeaderProps> = ({ activeSection }) => {
         <nav className="hidden md:flex items-center space-x-8 text-xs font-heading tracking-widest text-[#332d2b]/80 uppercase">
           {[
             { id: 'intro', label: 'Intro' },
-            { id: 'about', label: 'About' },
-            { id: 'what-we-do', label: 'Capabilities' },
+            { id: 'about', label: 'Philosophical Core' },
             { id: 'solutions', label: 'Solutions' },
             { id: 'contact', label: 'Contact' },
           ].map((item) => {
@@ -94,8 +93,7 @@ export const Header: React.FC<HeaderProps> = ({ activeSection }) => {
         <div className="md:hidden bg-[#fdfbf9] border-b border-[#d8b6a9]/30 px-6 py-6 space-y-4 text-center font-heading text-xs tracking-widest uppercase text-[#332d2b]">
           {[
             { id: 'intro', label: 'Intro' },
-            { id: 'about', label: 'About' },
-            { id: 'what-we-do', label: 'Capabilities' },
+            { id: 'about', label: 'Philosophical Core' },
             { id: 'solutions', label: 'Solutions' },
             { id: 'contact', label: 'Contact' },
           ].map((item) => (

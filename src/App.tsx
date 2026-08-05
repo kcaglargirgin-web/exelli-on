@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { IntroSection } from './components/IntroSection';
 import { AboutSection } from './components/AboutSection';
-import { WhatWeDoSection } from './components/WhatWeDoSection';
 import { SolutionsSection } from './components/SolutionsSection';
 import { ContactSection } from './components/ContactSection';
 import { AmbientBackground } from './components/AmbientBackground';
@@ -13,7 +12,7 @@ export default function App() {
 
   // Intersection Observer for active nav state
   useEffect(() => {
-    const sectionIds = ['intro', 'about', 'what-we-do', 'solutions', 'contact'];
+    const sectionIds = ['intro', 'about', 'solutions', 'contact'];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -55,11 +54,8 @@ export default function App() {
         {/* Intro */}
         <IntroSection />
 
-        {/* About */}
+        {/* About & Pillars with Capabilities Popups */}
         <AboutSection />
-
-        {/* What We Do */}
-        <WhatWeDoSection />
 
         {/* Solutions */}
         <SolutionsSection />
@@ -70,3 +66,4 @@ export default function App() {
     </div>
   );
 }
+

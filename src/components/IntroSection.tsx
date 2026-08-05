@@ -61,7 +61,7 @@ export const IntroSection: React.FC = () => {
         onClick={scrollToNext}
         className="scroll-indicator cursor-pointer flex flex-col items-center space-y-2 text-[10px] sm:text-xs font-heading tracking-[0.25em] text-[#524642] font-semibold uppercase hover:text-[#000000] transition-colors relative z-10"
       >
-        <span>Scroll to Shift Orbit</span>
+        <span>SCROLL FOR DETAILS</span>
         <ChevronDown className="w-4 h-4 animate-bounce text-[#c99f90]" />
       </motion.div>
     </section>

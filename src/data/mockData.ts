@@ -45,14 +45,14 @@ export const SOLUTIONS: SolutionItem[] = [
   {
     id: 'sol-2',
     number: '02',
-    title: 'Cognitive Mesh Security',
-    description: 'A self-healing security layer that predicts threats before they manifest, utilizing biometric synchronization.',
-    longDescription: 'Engineered for high-security enterprise environments, Cognitive Mesh Security continuously audits system behavior. It uses zero-knowledge verification to isolate unusual activity within milliseconds without interrupting normal user workflows.',
+    title: 'Edge Matrix Intelligence',
+    description: 'Deploying self-organizing neural nodes directly at the perimeter for zero-latency execution and autonomous local computing.',
+    longDescription: 'Engineered for high-throughput localized processing, Edge Matrix Intelligence deploys autonomous neural nodes directly where physical data originates. By operating independently of centralized cloud bottlenecks, localized edge nodes execute real-time inference with zero latency while maintaining resilient distributed mesh state synchronization.',
     keyBenefits: [
-      'Post-quantum resistant key infrastructure',
-      'Zero-Knowledge state validation',
-      'Real-time behavioral intrusion quarantine',
-      'End-to-end encrypted telemetry'
+      'Sub-millisecond localized node inference',
+      'Zero-latency edge event processing',
+      'Self-healing distributed mesh state',
+      'Resilient offline-first node execution'
     ],
     deploymentTime: '1 - 3 Weeks'
   },
@@ -60,12 +60,12 @@ export const SOLUTIONS: SolutionItem[] = [
     id: 'sol-3',
     number: '03',
     title: 'Autonomous Workflows',
-    description: 'Eliminate friction. Our engines automate complex supply chain and creative processes with 99.9% efficiency.',
+    description: 'Eliminate friction. Our engines orchestrate complex operational processes with ultra-fine precision and reliability.',
     longDescription: 'Transform routine operational tasks into smooth, autonomous background flows. By orchestrating multi-step workflows with high precision, your team spends less time on manual administrative steps and more time on high-value strategy.',
     keyBenefits: [
       'Multi-agent workflow orchestration',
       'Instant document & contract synthesis',
-      'API self-healing and error retry mechanisms',
+      'Self-healing API retry mechanisms',
       'Comprehensive human-in-the-loop review controls'
     ],
     deploymentTime: '2 Weeks'
@@ -73,14 +73,14 @@ export const SOLUTIONS: SolutionItem[] = [
   {
     id: 'sol-4',
     number: '04',
-    title: 'Quantum Data Visuals',
-    description: 'Transforming massive datasets into immersive 3D environments that allow for intuitive spatial analysis.',
-    longDescription: 'Complex multi-dimensional data becomes effortless to digest when visualized spatially. Quantum Data Visuals renders million-record datasets into interactive, fluid 3D maps and spatial graphs designed for immediate executive clarity.',
+    title: 'Perceptual Pattern Engine',
+    description: 'Translating multi-source telemetry into intuitive, predictive horizons that illuminate strategic paths before trends emerge.',
+    longDescription: 'Transform multi-dimensional data streams into fluid, intuitive decision vistas. The Perceptual Pattern Engine continuously synthesizes complex enterprise signals into real-time predictive projections, allowing organizations to navigate future trends with effortless clarity.',
     keyBenefits: [
-      'Sub-millisecond 3D data point rendering',
-      'Spatial spatial-clustering and trend mapping',
-      'Cross-platform mobile and desktop fluidity',
-      'Custom color themes for executive presentation'
+      'Real-time multi-source telemetry synthesis',
+      'High-dimensional trend projection engine',
+      'Fluid executive decision vistas',
+      'Adaptive pattern anomaly recognition'
     ],
     deploymentTime: '3 Weeks'
   }

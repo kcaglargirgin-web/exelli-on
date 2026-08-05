@@ -14,6 +14,10 @@ export const AmbientAudioPlayer: React.FC = () => {
     if (!('speechSynthesis' in window)) return;
 
     try {
+      // On iOS Safari / Chrome Mobile, synthesis might be paused
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
       window.speechSynthesis.cancel(); // clear ongoing queue
 
       // Phonetic spelling to ensure natural pronunciation: "Hi, welcome to exeli-in"
@@ -23,32 +27,45 @@ export const AmbientAudioPlayer: React.FC = () => {
       utterance.volume = 1.0;
 
       const voices = window.speechSynthesis.getVoices();
-      
-      // Specifically target "Ava Multilingual Online (Natural)" or similar Ava voices
-      let avaVoice = voices.find((v) =>
-        v.name.toLowerCase().includes('ava') &&
-        (v.name.toLowerCase().includes('multilingual') || v.name.toLowerCase().includes('online') || v.name.toLowerCase().includes('natural'))
+
+      // Target "Ava Multilingual Online (Natural)" or Microsoft Edge / Chrome / Safari natural female voices
+      let selectedVoice = voices.find(
+        (v) =>
+          v.name.toLowerCase().includes('ava') &&
+          (v.name.toLowerCase().includes('multilingual') ||
+            v.name.toLowerCase().includes('online') ||
+            v.name.toLowerCase().includes('natural'))
       );
 
-      if (!avaVoice) {
-        avaVoice = voices.find((v) => v.name.toLowerCase().includes('ava'));
+      if (!selectedVoice) {
+        selectedVoice = voices.find((v) => v.name.toLowerCase().includes('ava'));
       }
 
-      if (!avaVoice) {
-        // Fallback to high quality English female voices if Ava isn't installed on the OS
-        avaVoice = voices.find(
+      if (!selectedVoice) {
+        // High quality natural female voices across Microsoft Edge, Chrome, Safari, Firefox
+        // (e.g. Microsoft Ava Online, Microsoft Jenny Online, Microsoft Aria Online, Google US English, Samantha, Victoria)
+        selectedVoice = voices.find(
           (v) =>
             v.lang.startsWith('en') &&
-            (v.name.includes('Natural') ||
-              v.name.includes('Samantha') ||
+            (v.name.toLowerCase().includes('natural') ||
+              v.name.toLowerCase().includes('online') ||
               v.name.includes('Jenny') ||
+              v.name.includes('Aria') ||
+              v.name.includes('Samantha') ||
+              v.name.includes('Karen') ||
+              v.name.includes('Victoria') ||
               v.name.includes('Serena') ||
-              v.name.includes('Female'))
+              v.name.toLowerCase().includes('female'))
         );
       }
 
-      if (avaVoice) {
-        utterance.voice = avaVoice;
+      if (!selectedVoice) {
+        // Standard English fallback
+        selectedVoice = voices.find((v) => v.lang.startsWith('en'));
+      }
+
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
       }
 
       window.speechSynthesis.speak(utterance);
@@ -89,16 +106,16 @@ export const AmbientAudioPlayer: React.FC = () => {
 
     // Browser interaction listener to trigger audio play on first user activity if initial autoplay was blocked
     const handleFirstGesture = () => {
+      // Call speech SYNCHRONOUSLY within user gesture callstack for Mobile Safari / Chrome Mobile
+      playInitialWelcomeOnce();
+
       if (audioRef.current && audioRef.current.paused) {
         audioRef.current
           .play()
           .then(() => {
             setIsPlaying(true);
-            playInitialWelcomeOnce();
           })
           .catch(() => {});
-      } else {
-        playInitialWelcomeOnce();
       }
       removeGestureListeners();
     };
@@ -141,11 +158,12 @@ export const AmbientAudioPlayer: React.FC = () => {
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
+      // Synchronous speech call on button click for mobile support
+      speakWelcome();
       audioRef.current
         .play()
         .then(() => {
           setIsPlaying(true);
-          playInitialWelcomeOnce();
         })
         .catch((err) => console.error('Audio play error:', err));
     }

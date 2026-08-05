@@ -77,6 +77,131 @@ const SECTION_THEMES: Record<
   },
 };
 
+// Helper to generate a clean, basic minimalist Earth texture map with light pastel colors
+const createEarthTexture = (isMobile: boolean): { earthTex: THREE.CanvasTexture; cloudTex: THREE.CanvasTexture } => {
+  const w = isMobile ? 1024 : 2048;
+  const h = isMobile ? 512 : 1024;
+
+  // 1. Earth Surface Texture Canvas
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d')!;
+
+  // Light, soft pearl-alabaster ocean background gradient
+  const oceanGrad = ctx.createLinearGradient(0, 0, 0, h);
+  oceanGrad.addColorStop(0.0, '#f2ede6'); // Soft warm polar cream
+  oceanGrad.addColorStop(0.2, '#eaf0f5'); // Soft light sky pearl
+  oceanGrad.addColorStop(0.5, '#e2ebf2'); // Warm light ocean blue
+  oceanGrad.addColorStop(0.8, '#eaf0f5');
+  oceanGrad.addColorStop(1.0, '#f2ede6');
+  ctx.fillStyle = oceanGrad;
+  ctx.fillRect(0, 0, w, h);
+
+  // Helper to render basic clean minimalist continents in light rose-gold sand tones
+  const drawLand = (pts: [number, number][], isPolar = false) => {
+    ctx.save();
+    ctx.beginPath();
+    pts.forEach(([xPct, yPct], idx) => {
+      const px = (xPct / 100) * w;
+      const py = (yPct / 100) * h;
+      if (idx === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    });
+    ctx.closePath();
+
+    // Soft subtle continent border outline
+    ctx.strokeStyle = 'rgba(200, 168, 154, 0.4)';
+    ctx.lineWidth = isMobile ? 1.5 : 2.5;
+    ctx.stroke();
+
+    // Clean, light pastel rose-gold / sand fill
+    if (isPolar) {
+      ctx.fillStyle = '#f8f5f0';
+    } else {
+      const grad = ctx.createLinearGradient(0, 0, w, h);
+      grad.addColorStop(0, '#e5d1c5'); // Soft rose gold
+      grad.addColorStop(0.5, '#dbbeaf'); // Warm blush sand
+      grad.addColorStop(1, '#e8d8ce'); // Pale cream sand
+      ctx.fillStyle = grad;
+    }
+    ctx.fill();
+
+    ctx.restore();
+  };
+
+  // Major World Continents (Minimalist Polygons)
+  // North America
+  drawLand([[8, 18], [24, 12], [32, 22], [35, 38], [28, 48], [20, 52], [12, 45], [6, 30]]);
+  // Central America
+  drawLand([[20, 52], [28, 54], [25, 60], [18, 58]]);
+  // South America
+  drawLand([[25, 60], [35, 62], [42, 72], [36, 88], [28, 92], [24, 75]]);
+  // Europe
+  drawLand([[46, 18], [58, 15], [62, 26], [56, 38], [48, 35], [44, 26]]);
+  // Africa
+  drawLand([[42, 38], [68, 38], [68, 52], [62, 78], [52, 82], [44, 52]]);
+  // Asia / Siberia
+  drawLand([[58, 15], [88, 12], [96, 25], [86, 45], [72, 42], [62, 25]]);
+  // Arabia
+  drawLand([[60, 38], [68, 38], [66, 48], [58, 48]]);
+  // India & South Asia
+  drawLand([[70, 42], [78, 42], [75, 58], [68, 55]]);
+  // SE Asia & East China
+  drawLand([[78, 38], [92, 42], [90, 62], [80, 60]]);
+  // Australia
+  drawLand([[82, 68], [94, 68], [92, 88], [80, 85]]);
+  // Greenland
+  drawLand([[32, 8], [42, 6], [40, 18], [34, 16]], true);
+  // Antarctica
+  drawLand([[0, 92], [100, 92], [100, 100], [0, 100]], true);
+
+  // Major Islands
+  drawLand([[46, 22], [50, 20], [48, 28], [45, 26]]); // UK & Ireland
+  drawLand([[90, 32], [94, 28], [92, 38], [88, 36]]); // Japan
+  drawLand([[82, 58], [88, 60], [86, 65], [80, 62]]); // Indonesia
+  drawLand([[64, 68], [68, 68], [66, 80], [62, 78]]); // Madagascar
+
+  // Subtle soft golden dots on major urban centers
+  ctx.fillStyle = 'rgba(216, 182, 169, 0.6)';
+  const lightCount = isMobile ? 80 : 180;
+  for (let i = 0; i < lightCount; i++) {
+    const lx = Math.random() * w;
+    const ly = Math.random() * h;
+    const size = Math.random() * 1.2 + 0.6;
+    ctx.beginPath();
+    ctx.arc(lx, ly, size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // 2. Cloud Layer Texture Canvas (Soft white wisps)
+  const cloudCanvas = document.createElement('canvas');
+  cloudCanvas.width = w;
+  cloudCanvas.height = h;
+  const cctx = cloudCanvas.getContext('2d')!;
+
+  cctx.fillStyle = 'rgba(255, 255, 255, 0)';
+  cctx.fillRect(0, 0, w, h);
+
+  cctx.fillStyle = 'rgba(255, 255, 255, 0.35)';
+
+  const cloudCount = isMobile ? 40 : 80;
+  for (let i = 0; i < cloudCount; i++) {
+    const cx = Math.random() * w;
+    const cy = Math.random() * h;
+    const rx = 30 + Math.random() * 100;
+    const ry = 6 + Math.random() * 18;
+    cctx.beginPath();
+    cctx.ellipse(cx, cy, rx, ry, (Math.random() - 0.5) * 0.4, 0, Math.PI * 2);
+    cctx.fill();
+  }
+
+  const earthTex = new THREE.CanvasTexture(canvas);
+  const cloudTex = new THREE.CanvasTexture(cloudCanvas);
+
+  return { earthTex, cloudTex };
+};
+
 export const PlanetCanvas: React.FC<PlanetCanvasProps> = ({ activeSection }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -125,21 +250,42 @@ export const PlanetCanvas: React.FC<PlanetCanvasProps> = ({ activeSection }) => 
       const planetGroup = new THREE.Group();
       scene.add(planetGroup);
 
-      // --- 3. Inner Core Sphere ---
-      const coreGeo = new THREE.IcosahedronGeometry(1.6, isMobile ? 3 : 4);
-      const coreMat = new THREE.MeshPhongMaterial({
-        color: 0xffffff,
-        emissive: 0xd8b6a9,
-        emissiveIntensity: 0.2,
-        shininess: 90,
-        flatShading: true,
-        transparent: true,
-        opacity: 0.85,
-      });
-      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-      planetGroup.add(coreMesh);
+      // --- 3. Realistic 3D Earth Model & Atmosphere ---
+      const { earthTex, cloudTex } = createEarthTexture(isMobile);
 
-      // Wireframe Outer Mesh
+      // Earth Surface Sphere
+      const earthGeo = new THREE.SphereGeometry(1.6, isMobile ? 36 : 64, isMobile ? 36 : 64);
+      const earthMat = new THREE.MeshStandardMaterial({
+        map: earthTex,
+        roughness: 0.5,
+        metalness: 0.05,
+      });
+      const earthMesh = new THREE.Mesh(earthGeo, earthMat);
+      planetGroup.add(earthMesh);
+
+      // Rotating Cloud Layer
+      const cloudGeo = new THREE.SphereGeometry(1.618, isMobile ? 36 : 64, isMobile ? 36 : 64);
+      const cloudMat = new THREE.MeshStandardMaterial({
+        map: cloudTex,
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending,
+      });
+      const cloudsMesh = new THREE.Mesh(cloudGeo, cloudMat);
+      planetGroup.add(cloudsMesh);
+
+      // Atmospheric Glow Aura
+      const atmosphereGeo = new THREE.SphereGeometry(1.67, isMobile ? 24 : 48, isMobile ? 24 : 48);
+      const atmosphereMat = new THREE.MeshBasicMaterial({
+        color: 0xd8b6a9,
+        transparent: true,
+        opacity: 0.25,
+        side: THREE.BackSide,
+      });
+      const atmosphereMesh = new THREE.Mesh(atmosphereGeo, atmosphereMat);
+      planetGroup.add(atmosphereMesh);
+
+      // Wireframe Tech Overlay Mesh
       const wireGeo = new THREE.IcosahedronGeometry(1.68, isMobile ? 1 : 2);
       const wireMat = new THREE.MeshBasicMaterial({
         color: 0xd8b6a9,
@@ -371,7 +517,7 @@ export const PlanetCanvas: React.FC<PlanetCanvasProps> = ({ activeSection }) => 
         });
         wireMat.color.copy(currentRingColor);
         particleMat.color.copy(currentParticleColor);
-        coreMat.emissive.copy(currentRingColor);
+        atmosphereMat.color.copy(currentRingColor);
         dirLight2.color.copy(currentRingColor);
 
         // Lerp position & scale
@@ -403,7 +549,8 @@ export const PlanetCanvas: React.FC<PlanetCanvasProps> = ({ activeSection }) => 
         );
 
         // Rotations & Orbits
-        coreMesh.rotation.y = elapsedTime * 0.12;
+        earthMesh.rotation.y = elapsedTime * 0.08;
+        cloudsMesh.rotation.y = elapsedTime * 0.12;
         wireMesh.rotation.y = -elapsedTime * 0.08;
         latGroup.rotation.y = elapsedTime * 0.05;
 

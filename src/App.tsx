@@ -3,16 +3,16 @@ import { Header } from './components/Header';
 import { IntroSection } from './components/IntroSection';
 import { AboutSection } from './components/AboutSection';
 import { SolutionsSection } from './components/SolutionsSection';
+import { ReferencesSection } from './components/ReferencesSection';
 import { ContactSection } from './components/ContactSection';
 import { AmbientBackground } from './components/AmbientBackground';
-import { AmbientAudioPlayer } from './components/AmbientAudioPlayer';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('intro');
 
   // Intersection Observer for active nav state
   useEffect(() => {
-    const sectionIds = ['intro', 'about', 'solutions', 'contact'];
+    const sectionIds = ['intro', 'about', 'solutions', 'references', 'contact'];
     const observers: IntersectionObserver[] = [];
 
     sectionIds.forEach((id) => {
@@ -43,9 +43,6 @@ export default function App() {
       {/* 3D Planet Background & Ambient Lighting */}
       <AmbientBackground activeSection={activeSection} />
 
-      {/* Ambient Audio Player */}
-      <AmbientAudioPlayer />
-
       {/* Header Navigation */}
       <Header activeSection={activeSection} />
 
@@ -59,6 +56,9 @@ export default function App() {
 
         {/* Solutions */}
         <SolutionsSection />
+
+        {/* References Auto Sliding Ticker */}
+        <ReferencesSection />
 
         {/* Contact */}
         <ContactSection />

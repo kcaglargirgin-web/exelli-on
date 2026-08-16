@@ -90,21 +90,28 @@ export const IsolineCanvas: React.FC<IsolineCanvasProps> = () => {
 
     const snoise = createSimplexNoise(Math.floor(Math.random() * 100000));
 
-    // Configuration - Less dense for a clean, elegant feel
+    // Detect touch / tablet / mobile devices to optimize particle count and grid density
+    const isTouchOrTablet =
+      typeof window !== 'undefined' &&
+      (window.innerWidth <= 1180 ||
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0);
+
+    // Configuration - Adapted dynamically for silky performance across desktop, tablet, and mobile
     const CFG = {
-      count: 1500, // Reduced from 3600 for a cleaner, less dense look
+      count: isTouchOrTablet ? 400 : 900,
       scale: 150,
       speed: 100,
       morph: 30,
       persist: 86,
       width: 75,
-      bands: 6,
-      wash: 35, // Slightly darker wash opacity
-      swirl: 45,
+      bands: 5,
+      wash: 25,
+      swirl: 35,
       theme: 'roseGold' as keyof typeof THEMES,
     };
 
-    const CELL = 10;
+    const CELL = isTouchOrTablet ? 18 : 12;
     let W = 0, H = 0, DPR = 1;
     let GW = 0, GH = 0;
     let psi: Float32Array;
@@ -132,7 +139,7 @@ export const IsolineCanvas: React.FC<IsolineCanvasProps> = () => {
     let stars: Star[] = [];
 
     const initStars = (width: number, height: number) => {
-      const starCount = Math.floor((width * height) / 32000) + 30; // ~40-60 stars
+      const starCount = Math.floor((width * height) / (isTouchOrTablet ? 60000 : 35000)) + 20;
       stars = [];
       for (let i = 0; i < starCount; i++) {
         stars.push({
@@ -142,7 +149,7 @@ export const IsolineCanvas: React.FC<IsolineCanvasProps> = () => {
           baseAlpha: Math.random() * 0.4 + 0.25,
           speed: Math.random() * 2 + 1,
           phase: Math.random() * Math.PI * 2,
-          isCross: Math.random() < 0.25, // 25% of stars have a delicate 4-point cross glint
+          isCross: Math.random() < 0.2,
         });
       }
     };
@@ -196,7 +203,7 @@ export const IsolineCanvas: React.FC<IsolineCanvasProps> = () => {
     const alloc = () => {
       W = window.innerWidth;
       H = window.innerHeight;
-      DPR = Math.min(window.devicePixelRatio || 1, 1.6);
+      DPR = isTouchOrTablet ? 1.0 : Math.min(window.devicePixelRatio || 1, 1.25);
 
       veinsEl.width = Math.max(1, Math.round(W * DPR));
       veinsEl.height = Math.max(1, Math.round(H * DPR));
@@ -420,6 +427,7 @@ export const IsolineCanvas: React.FC<IsolineCanvasProps> = () => {
 
     let animId: number;
     let last = performance.now();
+    let frameCount = 0;
 
     const loop = (now: number) => {
       animId = requestAnimationFrame(loop);
@@ -427,8 +435,14 @@ export const IsolineCanvas: React.FC<IsolineCanvasProps> = () => {
       last = now;
       if (dt > 0.05) dt = 0.05;
 
-      buildField(dt);
-      drawWash();
+      frameCount++;
+
+      // On tablet/touch devices, calculate the heavy noise grid every 2nd frame to keep 60fps scrolling
+      if (!isTouchOrTablet || frameCount % 2 === 0) {
+        buildField(dt * (isTouchOrTablet ? 2 : 1));
+        drawWash();
+      }
+
       stepTracers(dt);
       drawTracers();
       drawStars(now / 1000);
@@ -459,7 +473,7 @@ export const IsolineCanvas: React.FC<IsolineCanvasProps> = () => {
       {/* Wash elevation layer */}
       <canvas
         ref={washRef}
-        className="absolute inset-0 w-full h-full filter blur-[10px] saturate-[1.1] opacity-40 pointer-events-none"
+        className="absolute inset-0 w-full h-full opacity-30 pointer-events-none"
       />
       {/* Veins curl-noise tracer layer */}
       <canvas

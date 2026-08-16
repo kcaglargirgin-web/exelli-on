@@ -7,14 +7,22 @@ export interface CapabilityItem {
   metrics: string;
 }
 
+export interface SectorBullet {
+  sector: string;
+  description: string;
+}
+
 export interface SolutionItem {
   id: string;
   number: string;
   title: string;
-  description: string;
-  longDescription: string;
-  keyBenefits: string[];
-  deploymentTime: string;
+  tagline: string;
+  problem: string;
+  whatWeDo: string;
+  keyDeliverables: string[];
+  supportedDomains?: string[];
+  sectorBullets?: SectorBullet[];
+  scopeHighlights?: { title: string; desc: string }[];
 }
 
 export interface ContactFormState {
@@ -22,3 +30,4 @@ export interface ContactFormState {
   email: string;
   vision: string;
 }
+

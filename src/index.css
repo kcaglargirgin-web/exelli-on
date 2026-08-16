@@ -45,6 +45,26 @@
   animation: floatLogo 6s ease-in-out infinite;
 }
 
+/* Infinite Marquee Ticker */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
 /* Glassmorphism Card Style */
 .do-card-glass {
   background: rgba(255, 255, 255, 0.65);

@@ -49,6 +49,7 @@ export const Header: React.FC<HeaderProps> = ({ activeSection }) => {
             { id: 'intro', label: 'Intro' },
             { id: 'about', label: 'Philosophical Core' },
             { id: 'solutions', label: 'Solutions' },
+            { id: 'references', label: 'References' },
             { id: 'contact', label: 'Contact' },
           ].map((item) => {
             const isActive = activeSection === item.id;
@@ -95,6 +96,7 @@ export const Header: React.FC<HeaderProps> = ({ activeSection }) => {
             { id: 'intro', label: 'Intro' },
             { id: 'about', label: 'Philosophical Core' },
             { id: 'solutions', label: 'Solutions' },
+            { id: 'references', label: 'References' },
             { id: 'contact', label: 'Contact' },
           ].map((item) => (
             <div key={item.id}>

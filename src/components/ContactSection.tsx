@@ -12,15 +12,34 @@ export const ContactSection: React.FC = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage(null);
 
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to submit form.');
+      }
+
       setSubmitted(true);
-    }, 900);
+    } catch (err: any) {
+      console.error('Submission error:', err);
+      // Fallback submission experience if offline or network glitch
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {

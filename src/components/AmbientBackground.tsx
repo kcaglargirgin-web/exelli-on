@@ -11,16 +11,21 @@ export const AmbientBackground: React.FC<AmbientBackgroundProps> = ({ activeSect
       {/* Topology Isoline Curl-Noise Field Background */}
       <IsolineCanvas activeSection={activeSection} />
 
-      {/* Upper right soft ambient lighting */}
+      {/* Upper right soft ambient lighting gradient */}
       <div
-        className="absolute top-[10%] right-[-5%] w-[300px] h-[300px] sm:w-[550px] sm:h-[550px] rounded-full blur-[40px] sm:blur-[110px] opacity-25 mix-blend-multiply transition-colors duration-1000 ease-out"
-        style={{ backgroundColor: '#eadad3' }}
+        className="absolute top-[5%] right-[-5%] w-[320px] h-[320px] sm:w-[600px] sm:h-[600px] rounded-full opacity-40 transition-colors duration-1000 ease-out pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(234, 218, 211, 0.6) 0%, rgba(234, 218, 211, 0) 70%)',
+        }}
       />
-      {/* Lower left soft ambient lighting */}
+      {/* Lower left soft ambient lighting gradient */}
       <div
-        className="absolute bottom-[10%] left-[-5%] w-[300px] h-[300px] sm:w-[650px] sm:h-[650px] rounded-full blur-[40px] sm:blur-[120px] opacity-30 mix-blend-multiply transition-colors duration-1000 ease-out"
-        style={{ backgroundColor: '#e0d8d5' }}
+        className="absolute bottom-[5%] left-[-5%] w-[320px] h-[320px] sm:w-[700px] sm:h-[700px] rounded-full opacity-45 transition-colors duration-1000 ease-out pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(224, 216, 213, 0.6) 0%, rgba(224, 216, 213, 0) 70%)',
+        }}
       />
     </div>
   );
 };
+

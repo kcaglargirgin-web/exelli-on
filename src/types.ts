@@ -17,6 +17,7 @@ export interface SolutionItem {
   number: string;
   title: string;
   tagline: string;
+  image?: string;
   problem: string;
   whatWeDo: string;
   keyDeliverables: string[];

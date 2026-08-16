@@ -1,5 +1,11 @@
 import { CapabilityItem, SolutionItem } from '../types';
 
+import aiTransformArt from '../assets/images/ai_transformation_1786903757642.jpg';
+import digitalTwinArt from '../assets/images/digital_ai_twin_1786903770747.jpg';
+import processReengineeringArt from '../assets/images/next_gen_hmi_1786903782536.jpg';
+import agenticAutomationArt from '../assets/images/agentic_teams_1786903796314.jpg';
+import sectorWiseBrainArt from '../assets/images/sector_wisebrain_1786903811266.jpg';
+
 export const CAPABILITIES: CapabilityItem[] = [
   {
     id: 'cap-1',
@@ -33,6 +39,7 @@ export const SOLUTIONS: SolutionItem[] = [
     number: '01',
     title: 'Future Organization Operating Model with AI',
     tagline: 'Restructuring enterprise operating models around human-AI collaboration to accelerate decision speed and eliminate organizational silos.',
+    image: aiTransformArt,
     problem: 'Traditional corporate structures are built around rigid functional silos and slow manual handoffs. As market cycles accelerate, slow cross-departmental communication and top-heavy approval chains create severe execution bottlenecks.',
     whatWeDo: 'We redesign your organizational structure, governance framework, and day-to-day operating models around intelligent AI coordination. Human teams are liberated from repetitive administrative overhead to focus on high-impact strategic decisions while autonomous AI systems streamline operational routing and information flow.',
     keyDeliverables: [
@@ -47,6 +54,7 @@ export const SOLUTIONS: SolutionItem[] = [
     number: '02',
     title: 'Digital / AI Twin',
     tagline: 'High-fidelity AI simulation replicas of enterprise business processes, IT architectures, operating models, and organizational systems to stress-test and optimize performance before live execution.',
+    image: digitalTwinArt,
     problem: 'Making large-scale changes to complex business processes, IT systems, or organizational structures carries high risk. Without real-time simulation, leaders face unpredictable downstream bottlenecks, architectural breaking points, and costly trial-and-error.',
     whatWeDo: 'We build dynamic, data-driven AI Twins that replicate your entire operational reality—not just physical equipment, but core business processes, software architectures, team operating models, and organizational workflows. Connected to real-time telemetry and event logs, our AI Twins allow leadership to run scenario simulations, forecast impact, stress-test restructuring, and optimize system performance with zero operational risk.',
     scopeHighlights: [
@@ -79,6 +87,7 @@ export const SOLUTIONS: SolutionItem[] = [
     number: '03',
     title: 'Value Engine – Reimagine Processes with AI',
     tagline: 'End-to-end redesign of core business processes with AI to unlock hidden cost savings, eliminate waste, and accelerate execution velocity.',
+    image: processReengineeringArt,
     problem: 'Most companies merely add superficial software layers on top of outdated 20-year-old processes. This perpetuates structural inefficiencies, slow turnaround times, high operating overhead, and poor customer experience.',
     whatWeDo: 'We analyze your core value chains from first principles, identify every point of operational friction, and rebuild entire workflows around intelligent AI capabilities. Instead of minor incremental patches, we deliver radical throughput speedups and substantial bottom-line cost reductions.',
     keyDeliverables: [
@@ -93,6 +102,7 @@ export const SOLUTIONS: SolutionItem[] = [
     number: '04',
     title: 'Neo-Agentic Automation',
     tagline: 'Coordinated multi-agent AI networks that execute multi-step enterprise workflows across disparate tools with human-in-the-loop governance.',
+    image: agenticAutomationArt,
     problem: 'Legacy Robotic Process Automation (RPA) is fragile and breaks whenever user interfaces or data formats change. Meanwhile, skilled knowledge workers waste valuable hours manually bridging data between CRMs, ERPs, emails, and legacy software.',
     whatWeDo: 'We deploy coordinated networks of intelligent, specialized AI agents capable of reasoning, planning, and executing complex multi-step workflows across your existing enterprise software, databases, and APIs. These agents adapt dynamically to edge cases while giving managers total control with built-in human verification gates.',
     keyDeliverables: [
@@ -107,6 +117,7 @@ export const SOLUTIONS: SolutionItem[] = [
     number: '05',
     title: 'Sector-Specific WiseBrain',
     tagline: 'Dedicated, sector-tailored intelligence engines engineered for specific industry verticals—synthesizing domain regulations, engineering standards, and institutional knowledge for zero-hallucination decision support.',
+    image: sectorWiseBrainArt,
     problem: 'Generic all-in-one AI models fail in specialized industries. They lack deep domain taxonomy, miss critical safety codes, and risk severe compliance violations when applied to complex, highly regulated enterprise environments.',
     whatWeDo: 'We do not build a generic, one-size-fits-all model. Instead, for each specific sector, we engineer a dedicated WiseBrain intelligence core trained exclusively on that industry’s exact technical standards, regulatory frameworks, engineering specifications, and institutional knowledge bases—providing instant, cited, and audit-ready intelligence.',
     sectorBullets: [

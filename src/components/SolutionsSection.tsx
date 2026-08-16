@@ -71,6 +71,30 @@ export const SolutionsSection: React.FC = () => {
                 onClick={() => setSelectedSolution(sol)}
                 className="solution-card group p-6 sm:p-10 rounded-3xl bg-[#fdfbf9] border border-[#d8b6a9]/30 hover:border-[#c99f90] shadow-md hover:shadow-xl hover:shadow-[#d8b6a9]/15 transition-all duration-300 cursor-pointer text-left relative overflow-hidden"
               >
+                {/* Solution Artwork Header */}
+                {sol.image && (
+                  <div className="relative h-44 sm:h-60 w-full overflow-hidden rounded-2xl bg-[#f4ece6] mb-6 border border-[#d8b6a9]/30">
+                    <img
+                      src={sol.image}
+                      alt={sol.title}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out filter contrast-[1.03]"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#fdfbf9] via-transparent to-black/20" />
+
+                    {/* Floating Header Badges */}
+                    <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between pointer-events-none">
+                      <div className="px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#d8b6a9]/40 flex items-center space-x-1.5 text-[10px] font-heading font-semibold text-[#332d2b] tracking-wider uppercase shadow-xs">
+                        <Sparkles className="w-3 h-3 text-[#c99f90] shrink-0" />
+                        <span>Exelli-on Architecture</span>
+                      </div>
+                      <span className="px-2.5 py-1 rounded-full bg-[#332d2b]/85 backdrop-blur-md text-white font-heading text-[10px] tracking-widest font-mono">
+                        SOL // {sol.number}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-[#d8b6a9]/20">
                   <div className="flex items-center space-x-4">
                     <span className="font-heading text-3xl sm:text-4xl font-extralight text-[#c99f90]">
@@ -240,6 +264,23 @@ export const SolutionsSection: React.FC = () => {
 
                   {/* Scrollable Modal Content Body */}
                   <div className="flex-1 overflow-y-auto overscroll-contain p-6 sm:p-8 space-y-6">
+                    {/* Solution Visual Artwork */}
+                    {selectedSolution.image && (
+                      <div className="relative h-48 sm:h-64 w-full overflow-hidden rounded-2xl bg-[#f4ece6] border border-[#d8b6a9]/40 shadow-sm">
+                        <img
+                          src={selectedSolution.image}
+                          alt={selectedSolution.title}
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full object-cover filter contrast-[1.03]"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#221c1a]/50 via-transparent to-transparent" />
+                        <div className="absolute bottom-3 left-4 text-white/90 text-[11px] font-heading tracking-widest uppercase flex items-center space-x-1.5">
+                          <Sparkles className="w-3.5 h-3.5 text-[#c99f90]" />
+                          <span>Architectural Blueprint // Solution {selectedSolution.number}</span>
+                        </div>
+                      </div>
+                    )}
+
                     {/* The Problem */}
                     <div className="p-5 sm:p-6 rounded-2xl bg-[#fcf8f5] border border-[#e8d2ca] space-y-2.5">
                       <div className="flex items-center space-x-2 text-[#9a4b3d] font-heading font-semibold text-xs uppercase tracking-wider">
